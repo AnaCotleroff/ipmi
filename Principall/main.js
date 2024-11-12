@@ -2,35 +2,48 @@ class Main {
   constructor() {
     this.dora = new Dora();
     this.zorro = new Zorro();
-    this.obstaculos = []; // Array de obstáculos
-    this.contador = 0;
-    this.juegoTerminado = false; // Bandera para saber si el juego terminó
+    this.obstaculos = []; // Array para almacenar los obstáculos
+    this.contador = 0; // Puntaje
+    this.juegoTerminado = false; // Bandera para indicar si el juego terminó
+    this.fondo = loadImage('data/fondo.jpg'); // Fondo del juego
   }
 
   mostrar() {
     if (this.juegoTerminado) {
       this.mostrarMensajeFinJuego();
-      return; // Detiene el juego si está terminado
+      return; // Detiene el juego si ha terminado
     }
 
-    this.dora.mover(); // Mueve a Dora
-    this.dora.mostrar(); // Muestra a Dora
+    // Mostrar fondo
+    background(255);
+    image(this.fondo, 0, 0, width, height); // Dibuja el fondo
 
-    this.zorro.mostrar(); // Muestra al Zorro (estático a la izquierda)
+    // Mover y mostrar a Dora
+    this.dora.mover();
+    this.dora.mostrar();
 
-    this.manejarObstaculo(); // Controla y maneja el obstáculo
-    this.chocar(); // Verifica si hubo colisiones
-    this.mostrarPuntaje(); // Muestra el puntaje
+    // Mostrar al Zorro
+    this.zorro.mostrar();
+
+    // Gestionar obstáculos
+    this.manejarObstaculo();
+
+    // Verificar colisiones
+    this.chocar();
+
+    // Mostrar puntaje
+    this.mostrarPuntaje();
   }
 
   manejarObstaculo() {
-    if (frameCount % 60 === 0) { // Cada 60 cuadros, el Zorro lanza un obstáculo
+    if (frameCount % 90 === 0) {
       let obstaculo = this.zorro.lanzarObstaculo();
-      this.obstaculos.push(obstaculo); // Agrega el obstáculo al array
+      if (obstaculo) {
+        this.obstaculos.push(obstaculo); // Agregar el obstáculo
+      }
     }
 
-    // Mueve y muestra los obstáculos
-    for (let i = 0; i < this.obstaculos.length; i++) {
+    for (let i = this.obstaculos.length - 1; i >= 0; i--) {
       let obstaculo = this.obstaculos[i];
       obstaculo.mover();
       obstaculo.mostrar();
@@ -38,21 +51,28 @@ class Main {
       // Si el obstáculo se sale de la pantalla, lo eliminamos
       if (obstaculo.x > width) {
         this.obstaculos.splice(i, 1);
-        i--;
-        this.contador++; // Aumenta el puntaje
+        this.contador++; // Incrementa el puntaje
       }
     }
   }
 
   chocar() {
-    // Si hay un obstáculo, verificamos la colisión con Dora
     for (let obstaculo of this.obstaculos) {
-      let distX = abs(this.dora.x - obstaculo.x);
-      let distY = abs(this.dora.y - obstaculo.y);
+      // Verificar si Dora está agachada o no
+      if (this.dora.agachada && obstaculo.tipo === "abajo") {
+        // Si Dora está agachada y el obstáculo está en la parte de abajo, no colisiona
+        continue;
+      }
 
-      // Verificamos si hay colisión entre Dora y el obstáculo
-      if (distX < this.dora.d / 2 + obstaculo.d / 2 && distY < this.dora.d / 2 + obstaculo.d / 2) {
-        this.juegoTerminado = true; // Si Dora toca el obstáculo, el juego termina
+      // Calcular la distancia entre Dora y el obstáculo
+      let distX = this.dora.x - obstaculo.x;
+      let distY = this.dora.y - obstaculo.y;
+      let distancia = sqrt(distX * distX + distY * distY); // Distancia entre Dora y el obstáculo
+
+      // Si la distancia es menor que la suma de los radios, hay colisión
+      if (distancia < this.dora.d / 2 + obstaculo.d / 2) {
+        this.juegoTerminado = true;
+        break; // Termina el ciclo si colisionó
       }
     }
   }
@@ -60,16 +80,16 @@ class Main {
   mostrarPuntaje() {
     fill(255);
     textSize(24);
-    text("Puntaje: " + this.contador, 10, 30); // Muestra el puntaje en la esquina superior izquierda
+    text("Puntaje: " + this.contador, 10, 30);
   }
 
   mostrarMensajeFinJuego() {
-    fill( 0, 255, 255); // Color rojo para el mensaje de fin de juego
-    textSize(48); // Tamaño de la fuente
-    textAlign(CENTER, CENTER); // Centra el texto en la pantalla
-    text("¡Perdiste!", width / 2, height / 2); // Muestra el mensaje en el centro
+    fill(0, 255, 255); // Mensaje en color cyan
+    textSize(48);
+    textAlign(CENTER, CENTER);
+    text("¡Perdiste!", width / 2, height / 2); // Mensaje de fin de juego
 
-    textSize(24); // Tamaño de fuente más pequeño para el puntaje
-    text("Puntaje final: " + this.contador, width / 2, height / 2 + 60); // Muestra el puntaje final debajo del mensaje
+    textSize(24);
+    text("Puntaje final: " + this.contador, width / 2, height / 2 + 60);
   }
 }

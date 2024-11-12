@@ -1,20 +1,28 @@
+let cuchilloImg; // Variable global para almacenar la imagen del cuchillo
+
+function preload() {
+  // Cargar la imagen del cuchillo solo una vez
+  cuchilloImg = loadImage('data/cuchillo.png'); // Asegúrate de que la ruta sea correcta
+}
+
 class Obstaculo {
-  constructor(_x, _y, _d, _tipo) {
-    this.x = _x; // Posición inicial en X
-    this.y = _y; // Posición inicial en Y
-    this.d = _d; // Tamaño del obstáculo
-    this.tipo = _tipo; // Tipo de obstáculo: "arriba" o "abajo"
-    this.vel = 4; // Velocidad moderada de los obstáculos
+  constructor(x, y, d, tipo) {
+    this.x = x;    // Posición inicial X
+    this.y = y;    // Posición inicial Y
+    this.d = d;    // Tamaño del obstáculo
+    this.tipo = tipo; // Tipo de obstáculo ('abajo' en este caso)
+    this.vel = 2;  // Velocidad más lenta para que Dora tenga tiempo de saltar y caer
   }
+
   mover() {
     this.x += this.vel; // Mueve el obstáculo hacia la derecha
   }
 
   mostrar() {
-    // Mostrar el obstáculo de acuerdo al tipo
     if (this.tipo === 'abajo') {
-      fill(255, 255, 0); // Obstáculo amarillo (lanzado hacia abajo)
-      ellipse(this.x, this.y, this.d); // Dibuja una pelota amarilla
+      if (cuchilloImg) {
+        image(cuchilloImg, this.x, this.y, 70, 70); // Ajusta el tamaño si es necesario
+      }
     }
   }
 }

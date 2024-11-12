@@ -1,4 +1,3 @@
-
 let ppal; // Instancia global de la clase Main
 let botonReiniciar; // Variable para el botón de reiniciar
 
@@ -26,7 +25,12 @@ function draw() {
   // Si el juego ha terminado, mostramos el mensaje de "¡Perdiste!" y el botón
   if (ppal.juegoTerminado) {
     ppal.mostrarMensajeFinJuego(); // Muestra el mensaje de fin de juego
-    botonReiniciar.show(); // Muestra el botón de reiniciar
+
+    // Esperamos un poco antes de mostrar el botón para que el jugador vea el mensaje
+    setTimeout(() => {
+      botonReiniciar.show(); // Muestra el botón de reiniciar después del retraso
+    }, 1000); // Retraso de 1 segundo
+
     return; // Detiene el resto del juego
   }
 
@@ -45,6 +49,16 @@ function checkColision() {
     if (obstaculo.tipo === 'abajo' && obstaculo.y >= ppal.dora.y + 40 && obstaculo.y <= ppal.dora.y + 80) {
       ppal.dora.agacharse(); // Dora se agacha si está en la zona correcta
     }
+
+    // Verifica si hay colisión con un obstáculo
+    let distX = ppal.dora.x - obstaculo.x;
+    let distY = ppal.dora.y - obstaculo.y;
+    let distancia = sqrt(distX * distX + distY * distY); // Calcula la distancia entre los centros
+
+    // Si la distancia es menor que la suma de los radios de Dora y el obstáculo, hay colisión
+    if (distancia < ppal.dora.d / 2 + obstaculo.d / 2) {
+      ppal.juegoTerminado = true; // Si Dora toca el obstáculo, termina el juego
+    }
   }
 }
 
@@ -60,7 +74,6 @@ function keyPressed() {
   }
 }
 
-// Cuando se suelta la tecla 'A', Dora deja de agacharse 
 function keyReleased() {
   if (key === 'a' || key === 'A') {
     ppal.dora.dejarDeAgacharse();
