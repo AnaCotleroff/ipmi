@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    
+    
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;900&display=swap" rel="stylesheet">
+    
+     <link rel="stylesheet" href="estilos.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FARANEWS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div class="franja">
+  <div class="navbar">
+    <img src="img/logo.png" alt="Logo" class="logo">
+    <div class="menu">
+      <a href="#inicio" class="nav-boton activo">INICIO</a>
+      <a href="#videos" class="nav-boton">VIDEOS</a>
+      <a href="#beneficios" class="nav-boton">BENEFICIOS VIP</a>
+      <a href="#suscripcion" class="nav-boton">SUSCRIPCIÓN</a>
+    </div>
+  </div>
+</div>
+
+    <h1>¡SUSCRIBITE Y ACCEDÉ A <br> LO MEJOR DE FARANEWS! </h1>
+
+      <div class="subtitulo">
+   <h2> Cartelera virtual, noticiero sin censura ¡y mucho mas! <br> Vos elegís si te indignás, te reís o lo ignorás todo… </h2></div>
+    
+  
+    <a href="#suscripcion" class="boton-suscripcion">¡ME SUSCRIBO, <br> NENITA!</a>
+    <img src="img/imginicio.png" alt="Faranews Ilustracion" class="ilustracion">
+
+
+    <section id="videos"> 
+    <div class="titulos">
+    RECIÉN SALIDOS DEL HORNO </div>
+
+    <h3>DELEITATE CON LAS PERLITAS MÁS JUGOSAS Y RECIENTES DEL MUNDO FARAN-DULÍSTICO: TODO SERVIDO EN BANDEJA.</h3>
+
+<div class="carousel-container">
+    <div class="carousel">
+        <div class="carousel-item active">
+            <img src="img/miniatura1.jpg" alt="Imagen 1">
+        </div>
+        <div class="carousel-item">
+            <img src="img/miniatura2.jpg" alt="Imagen 2">
+        </div>
+        <div class="carousel-item">
+            <img src="img/miniatura3.jpg" alt="Imagen 3">
+        </div>
+    </div>
+    <botonn class="prev" onclick="moveSlide(-1)">&#10094;</botonn>
+    <botonn class="next" onclick="moveSlide(1)">&#10095;</botonnn>
+</div>
+
+
+
+</section>
+
+<section id="beneficios"> 
+     <div class="titulos">
+    ¿POR QUÉ SUSCRIBIRME? </div>
+
+    <h3>PORQUE NO ESTÁS PARA PERDER TIEMPO BUSCANDO EL "TEA": TE LO TRAEMOS ORDENADO, SIN CENSURA Y ANTES QUE A NADIE, PARA QUE CUANDO LA OLLA ESTÉ REPLETA, YA SEPAS A QUÉ HUELE.</h3>
+
+  <ul class="beneficios-lista">
+    <li>
+      <img src="img/cartelera2.png" alt="Cartelera Virtual" class="icono">
+      <h2>CARTELERA VIRTUAL</h2>
+      <h3 class="beneficio-texto">¿No tenés tiempo para todo el chisme? Te lo traemos por escrito y en detalle. La cartelera te indica minuto a minuto qué se habla y cuándo, para que elijas con precisión el bardo que querés ver</h3>
+    </li>
+    <li>
+      <img src="img/acceso2.png" alt="Acceso Anticipado" class="icono">
+      <h2>ACCESO ANTICIPADO</h2>
+      <h3 class="beneficio-texto">¿Querés ser la primera en enterarte de todo? Accedé exclusivamente a los videos antes que sean publicados para el resto. Que no te ganen de mano…</h3>
+    </li>
+    <li>
+      <img src="img/censura2.png" alt="Noticiero Sin Censura" class="icono">
+      <h2>NOTICIERO SIN CENSURA</h2>
+      <h3 class="beneficio-texto"> Lo que YouTube no se anima a mostrarte. El escándalo sin filtros, sin tapujos y con todos los datitos jugosos. Con links exclusivos, obvio.</h3>
+    </li>
+    <li>
+      <img src="img/descuento2.png" alt="Descuentos en twitch" class="icono">
+      <h2>DESCUENTOS EN TWITCH</h2>
+     <h3 class="beneficio-texto"> Sumate a la comunidad VIP de Faranews con un 40% de descuento. Accedé a emojis exclusivos, insignias de suscriptor, visualización sin anuncios y chat solo para miembros.</h3>
+    </li>
+  </ul>
+</section>
+
+
+<section id="suscripcion">
+     <div class="titulos">
+    SUMATE A LA COMUNIDAD </div>
+
+    <h3>¿QUERÉS EL DRAMA MEDIÁTICO SIN TANTAS VUELTAS? COMPLETÁ EL FORMULARIO Y RECIBÍ CONTENIDO EXCLUSIVO DIRECTAMENTE EN TU MAIL. <br> (PORQUE TE MERECÉS ENTERARTE ANTES QUE LAS BÁSICAS).</h3>
+  
+  <div class="formulario-contenedor">
+    <h2 class="formulario-titulo">TU PASE DIRECTO AL PUTERÍO</h2>
+    <p class="formulario-subtitulo">Y POR TU CUMPLE, TE CAE ALTO REGALO<br>QUE NI TU EX TE DIO.</p>
+
+    <form class="formulario-estilo" id="formulario-suscripcion">
+      <input type="text" id="nombre" placeholder="Nombre" required>
+      <input type="text" id="apellido" placeholder="Apellido" required>
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="text" id="apodotortu" placeholder="Apodo tortu" required>
+      <input type="date" id="fecha" placeholder="Fecha de nacimiento" required>
+      <button type="submit" id="boton-enviar">¡QUIERO EL CHISME CALENTITO!</button>
+    </form>
+
+   <p class="formulario-legales">Términos y política de privacidad</p>
+  </div>
+<div id="modal-confirmacion" class="modal oculto">
+  <div class="modal-contenido">
+    <h2 id="modal-titulo"></h2>
+    <h4 id="mensaje-modal"></h4>
+    <p id="mensaje-correo"></p>
+    <p id="mensaje-final"> <span id="email-confirmado"></span></p>
+    <button id="cerrar-modal-boton" class="boton-suscripcion2">CERRAR</button>
+  </div>
+</div>
+</section>
+
+<script src="script.js"></script>
+
+<footer class="footer">
+  <div class="footer-left">
+    <p><strong>Redes Sociales</strong></p>
+    <p>Instagram - @martincirio</p>
+    <p>YouTube - Martina tu bella amiga</p>
+    <p>X - @MartinfaraonaOk</p>
+    <p>Twitch - martinciriook</p>
+  </div>
+  <div class="footer-right">
+    <p><strong>Legal</strong></p>
+    <p>Políticas de privacidad</p>
+    <p>Cookies</p>
+    <p>Términos de servicio</p>
+  </div>
+</footer>
+</body>
+</html>
